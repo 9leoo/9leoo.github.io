@@ -1,1 +1,1161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Léo Martin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Nouveau fond animé */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #000000 25%, #0a0a0a 25%, #0a0a0a 50%, #000000 50%, #000000 75%, #0a0a0a 75%, #0a0a0a);
+            background-size: 100px 100px;
+            animation: backgroundMove 20s linear infinite;
+        }
+
+        .animated-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 2%, transparent 5%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 3%, transparent 6%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.12) 4%, transparent 7%),
+                radial-gradient(circle at 60% 20%, rgba(255, 255, 255, 0.09) 3%, transparent 5%),
+                radial-gradient(circle at 90% 40%, rgba(255, 255, 255, 0.11) 2%, transparent 4%),
+                radial-gradient(circle at 10% 60%, rgba(255, 255, 255, 0.07) 3%, transparent 6%);
+            animation: droplets 15s ease-in-out infinite;
+        }
+
+        .animated-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 70% 10%, rgba(255, 255, 255, 0.05) 1%, transparent 3%),
+                radial-gradient(circle at 30% 90%, rgba(255, 255, 255, 0.06) 2%, transparent 4%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 1%, transparent 2%);
+            animation: droplets2 12s ease-in-out infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100px 100px;
+            }
+        }
+
+        @keyframes droplets {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.7;
+            }
+            25% {
+                transform: translateY(-20px) scale(1.1);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateY(0) scale(0.9);
+                opacity: 0.6;
+            }
+            75% {
+                transform: translateY(20px) scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes droplets2 {
+            0%, 100% {
+                transform: translateX(0) scale(1);
+                opacity: 0.5;
+            }
+            33% {
+                transform: translateX(30px) scale(1.2);
+                opacity: 0.7;
+            }
+            66% {
+                transform: translateX(-30px) scale(0.8);
+                opacity: 0.4;
+            }
+        }
+
+        header {
+            background: rgba(10, 10, 10, 0.85);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-name:hover {
+            color: #ff0000;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #ff0000;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff0000;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            animation: float 25s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-120vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: #ff0000;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            /* Supprimé l'encadré noir */
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            backdrop-filter: none;
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #ff0000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 220px);
+            gap: 2rem;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+
+        .project-card {
+            background: rgba(20, 20, 20, 0.85);
+            border-radius: 10px;
+            width: 220px;
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .project-card:hover {
+            border-color: #ff0000;
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.6), inset 0 0 30px rgba(255, 0, 0, 0.2);
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .project-card:hover .project-content h3,
+        .project-card:hover .project-image {
+            color: #ff0000;
+        }
+
+        .project-image {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .project-content {
+            text-align: center;
+        }
+
+        .project-content h3 {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff0000;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .voir-projet-btn {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #ff0000;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .project-card:hover .voir-projet-btn {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .voir-projet-btn:hover {
+            background: #cc0000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: rgba(20, 20, 20, 0.98);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2.5rem;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #ff0000;
+            transform: rotate(90deg);
+        }
+
+        .modal h2 {
+            color: #ff0000;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            text-align: left;
+        }
+
+        .modal h3 {
+            color: #ff0000;
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 0, 0, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .modal p {
+            color: #cccccc;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .modal ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+
+        .modal ul li {
+            color: #cccccc;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .modal ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .modal .tech-tags {
+            justify-content: flex-start;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+
+        .modal .tech-tag {
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+        }
+
+        .skills-grid {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .skill-card {
+            background: rgba(20, 20, 20, 0.85);
+            border-radius: 10px;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .skill-card:hover {
+            border-color: #ff0000;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .skill-card:hover h3,
+        .skill-card:hover .skill-icon {
+            color: #ff0000;
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 0.5rem;
+            transition: filter 0.3s;
+            object-fit: contain;
+        }
+
+        .skill-card:hover .skill-icon {
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8));
+        }
+
+        .skill-card h3 {
+            color: #ffffff;
+            margin-bottom: 0rem;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .learning-badge {
+            font-size: 0.6rem;
+            color: #ff9900;
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+
+        footer {
+            background: rgba(10, 10, 10, 0.85);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .social-links a:hover {
+            color: #ff0000;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 0, 0, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nouveau fond animé -->
+    <div class="animated-background"></div>
+
+    <header>
+        <nav>
+            <div class="nav-links">
+                <a href="#accueil">Accueil</a>
+                <a href="#projets">Projets</a>
+                <a href="#competences">Compétences</a>
+            </div>
+            <div class="nav-name">Léo Martin</div>
+        </nav>
+    </header>
+
+    <section id="accueil" class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h1>Bienvenue sur mon portfolio !</h1>
+            <p class="hero-text">
+                Passionné par la sécurité informatique depuis plusieurs années, je me destine à devenir ingénieur en cybersécurité et me spécialise dans la protection des systèmes et la sécurisation des réseaux.
+            </p>
+            <p class="hero-text">
+                Grâce à un apprentissage en autonomie, j'ai commencé à développer une solide compréhension des réseaux informatiques, des protocoles de sécurité et des bonnes pratiques en matière de protection des données. Je commence également à me former sur des outils essentiels comme Wireshark. Mon apprentissage s'est concentré sur les aspects techniques de la cybersécurité.
+            </p>
+            <p class="hero-text">
+                J'aime analyser les vulnérabilités, comprendre les mécanismes de protection. Mon objectif est de concevoir des solutions de sécurité opérationnelles. 
+            </p>
+            <p class="hero-text">
+                Découvrez mes projets académiques ci-dessous pour voir concrètement mes compétences.
+            </p>
+        </div>
+    </section>
+
+    <!-- Le reste du code reste inchangé -->
+    <section id="projets">
+        <h2>Mes Projets</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">🔐</div>
+                <div class="project-content">
+                    <h3>StrongBox 3000</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Arduino</span>
+                        <span class="tech-tag">C++</span>
+                    </div>
+                </div>
+                <button class="voir-projet-btn" onclick="openModal('modal1')">Voir le projet</button>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">📡</div>
+                <div class="project-content">
+                    <h3>ESCAPE NO GAME</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Signal</span>
+                    </div>
+                </div>
+                <button class="voir-projet-btn" onclick="openModal('modal2')">Voir le projet</button>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🗄️</div>
+                <div class="project-content">
+                    <h3>Base de Données</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                </div>
+                <button class="voir-projet-btn" onclick="openModal('modal3')">Voir le projet</button>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🌤️</div>
+                <div class="project-content">
+                    <h3>Station Météo</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Arduino</span>
+                        <span class="tech-tag">IoT</span>
+                    </div>
+                </div>
+                <button class="voir-projet-btn" onclick="openModal('modal4')">Voir le projet</button>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🔲</div>
+                <div class="project-content">
+                    <h3>Automate Cellulaire</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">POO</span>
+                    </div>
+                </div>
+                <button class="voir-projet-btn" onclick="openModal('modal5')">Voir le projet</button>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🌐</div>
+                <div class="project-content">
+                    <h3>Réseaux</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Réseau</span>
+                    </div>
+                </div>
+                <button class="voir-projet-btn" onclick="openModal('modal6')">Voir le projet</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Les modals restent inchangés -->
+    <div id="modal1" class="modal" onclick="closeModalOnBackground(event, 'modal1')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal1')">×</button>
+            <h2>Électronique – StrongBox 3000</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">Arduino</span>
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">Logisim</span>
+                <span class="tech-tag">Électronique</span>
+            </div>
+
+            <h3>Étude logique & simulations (Logisim)</h3>
+            <ul>
+                <li>Création des tables de vérité et simplification via Karnaugh.</li>
+                <li>Conception du circuit logique interne du coffre et des circuits de cartes.</li>
+                <li>Simulation complète des mécanismes pour garantir la reconnaissance correcte des 8 modèles de cartes.</li>
+            </ul>
+
+            <h3>Prototype électronique (Arduino + composants)</h3>
+            <ul>
+                <li>Dimensionnement des résistances et calcul des tensions caractéristiques.</li>
+                <li>Création du circuit du coffre : interrupteurs, activation par transistors, LEDs.</li>
+                <li>Réalisation du circuit d'une carte agent avec schéma optimisé.</li>
+                <li>Mesure et interprétation des tensions par Arduino.</li>
+            </ul>
+
+            <h3>Développement logiciel (Arduino)</h3>
+            <ul>
+                <li>Programmation complète du système StrongBox 3000.</li>
+                <li>Découpage en fonctions pour lisibilité et maintenabilité.</li>
+                <li>Intégration de plusieurs mécanismes d'authentification (MA1 à MA5).</li>
+                <li>Gestion des 6 niveaux de sécurité et communication série.</li>
+            </ul>
+
+            <h3>Compétences mobilisées :</h3>
+            <ul>
+                <li>Logique combinatoire & électronique numérique (Logisim)</li>
+                <li>Électronique analogique : dimensionnement, transistors, résistances, breadboard</li>
+                <li>Programmation embarquée sur Arduino (C/C++)</li>
+                <li>Conception algorithmique (logigrammes)</li>
+                <li>Gestion de projet & production de livrables techniques</li>
+                <li>Travail d'équipe, communication et démonstration finale</li>
+            </ul>
+
+            <h3>Résultat :</h3>
+            <p>Prototype fonctionnel capable de reconnaître physiquement un modèle de carte via tension analogique, d'adapter dynamiquement ses mécanismes, de simuler un coffre-fort multi-niveaux et de démontrer le fonctionnement complet lors de la soutenance.</p>
+        </div>
+    </div>
+
+    <!-- Les autres modals restent inchangés -->
+    <div id="modal2" class="modal" onclick="closeModalOnBackground(event, 'modal2')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal2')">×</button>
+            <h2>Traitement du Signal – ESCAPE NO GAME</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">LTSpice</span>
+                <span class="tech-tag">Jupyter</span>
+                <span class="tech-tag">Traitement Signal</span>
+            </div>
+
+            <h3>Objectifs du projet :</h3>
+            <ul>
+                <li>Imaginer une méthode scientifique pour transmettre des informations à travers des canaux non conventionnels.</li>
+                <li>Modéliser, expérimenter et réaliser un Proof of Concept (POC) complet simulant la transmission et la réception d'un message.</li>
+                <li>Appliquer des concepts de traitement du signal, filtrage, modulation et codage.</li>
+            </ul>
+
+            <h3>Travaux réalisés :</h3>
+            <p><strong>Proposition de solution :</strong></p>
+            <ul>
+                <li>Étude des caractéristiques des ondes sonores et réflexion sur une communication discrète.</li>
+                <li>Proposition de l'utilisation de signaux ultrasonores pour véhiculer le message sans être audible.</li>
+                <li>Développement de schémas et justifications scientifiques de la solution.</li>
+            </ul>
+
+            <p><strong>Étude technique et filtrage :</strong></p>
+            <ul>
+                <li>Détermination d'une plage de fréquence adaptée pour le signal non audible.</li>
+                <li>Conception d'un filtre analogique d'ordre 2 pour extraire le signal du micro.</li>
+                <li>Simulation théorique et pratique du filtre avec LTSpice et CircuitJS.</li>
+            </ul>
+
+            <p><strong>Modélisation de la chaîne de transmission :</strong></p>
+            <ul>
+                <li>Description complète de la séquence de transmission du message.</li>
+                <li>Distinction entre les signaux analogiques et numériques à chaque étape.</li>
+                <li>Dimensionnement des paramètres (fréquence d'échantillonnage, type de codage, structure des trames).</li>
+            </ul>
+
+            <p><strong>Prototype numérique :</strong></p>
+            <ul>
+                <li>Implémentation d'un POC en Python/Jupyter simulant la chaîne complète de transmission.</li>
+                <li>Transformation d'un message texte en signal sonore, puis reconstruction du message à la réception.</li>
+                <li>Mise en place de systèmes de détection d'erreurs et de visualisation.</li>
+            </ul>
+
+            <h3>Compétences mobilisées :</h3>
+            <ul>
+                <li>Analyse et conception scientifique d'une chaîne de communication</li>
+                <li>Traitement et filtrage du signal (analogique et numérique)</li>
+                <li>Modélisation et simulation en Python/Jupyter</li>
+                <li>Gestion de projet en équipe</li>
+            </ul>
+
+            <h3>Résultat :</h3>
+            <p>Prototype fonctionnel simulant la communication ultrasonore. Chaque étape de transformation du message est visualisée et validée, démontrant la faisabilité technique d'une communication discrète.</p>
+        </div>
+    </div>
+
+    <!-- Modal Base de Données MIS À JOUR avec la même structure -->
+    <div id="modal3" class="modal" onclick="closeModalOnBackground(event, 'modal3')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal3')">×</button>
+            <h2>Base de Données – Système de Qualité de l'Air</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">Merise</span>
+                <span class="tech-tag">SQL</span>
+                <span class="tech-tag">Modélisation</span>
+            </div>
+
+            <h3>Objectifs du projet :</h3>
+            <ul>
+                <li>Concevoir et modéliser une base de données pour la gestion de la qualité de l'air</li>
+                <li>Développer un système capable de stocker et d'interroger les données des capteurs environnementaux</li>
+                <li>Implémenter des requêtes SQL complexes pour l'analyse des données</li>
+                <li>Assurer la sécurité et la performance de la base de données</li>
+            </ul>
+
+            <h3>Travaux réalisés :</h3>
+            <p><strong>Conception et modélisation (Merise) :</strong></p>
+            <ul>
+                <li>Réalisation d'un dictionnaire de données complet</li>
+                <li>Création du Modèle Conceptuel de Données (MCD)</li>
+                <li>Développement du Modèle Logique de Données (MLD)</li>
+                <li>Élaboration du Modèle Physique de Données (MPD)</li>
+                <li>Construction d'arbres de dépendances fonctionnelles</li>
+            </ul>
+
+            <p><strong>Implémentation technique :</strong></p>
+            <ul>
+                <li>Création de la base de données avec MySQL</li>
+                <li>Développement de requêtes SQL avancées pour l'analyse</li>
+                <li>Mise en place des contraintes d'intégrité et de sécurité</li>
+                <li>Optimisation des performances avec indexation</li>
+                <li>Utilisation de MySQL Workbench pour la modélisation</li>
+            </ul>
+
+            <h3>Compétences mobilisées :</h3>
+            <ul>
+                <li>Modélisation de bases de données avec la méthode Merise</li>
+                <li>Conception de MCD, MLD et MPD</li>
+                <li>Développement de requêtes SQL complexes</li>
+                <li>Optimisation des performances des bases de données</li>
+                <li>Gestion de la sécurité et des contraintes d'intégrité</li>
+                <li>Travail d'équipe sur un projet de modélisation complexe</li>
+            </ul>
+
+            <h3>Résultat :</h3>
+            <p>Base de données fonctionnelle et optimisée capable de gérer efficacement les données de qualité de l'air, avec une structure relationnelle solide et des performances adaptées aux besoins d'analyse en temps réel.</p>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal" onclick="closeModalOnBackground(event, 'modal4')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal4')">×</button>
+            <h2>Worldwide Weather Watcher – Station météo embarquée</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">Arduino</span>
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">UML/SysML</span>
+                <span class="tech-tag">IoT</span>
+            </div>
+
+            <h3>Objectifs du projet :</h3>
+            <ul>
+                <li>Développer un prototype fonctionnel de station météo embarquée.</li>
+                <li>Collecter et stocker des données environnementales (pression, température, hygrométrie, luminosité).</li>
+                <li>Concevoir un système interactif avec LED et boutons.</li>
+                <li>Fournir une documentation technique et utilisateur complète.</li>
+            </ul>
+
+            <h3>Travaux réalisés :</h3>
+            <p><strong>Analyse du système :</strong></p>
+            <ul>
+                <li>Identification des fonctionnalités : acquisition, stockage SD, horodatage RTC, interface utilisateur.</li>
+                <li>Conception de diagrammes UML et SysML.</li>
+                <li>Définition des modes de fonctionnement.</li>
+            </ul>
+
+            <p><strong>Architecture du programme :</strong></p>
+            <ul>
+                <li>Architecture logicielle structurée (fonctions, variables, modules).</li>
+                <li>Programme pour acquisition et traitement des données.</li>
+                <li>Documentation interne pour maintenance.</li>
+            </ul>
+
+            <p><strong>Réalisation de la maquette :</strong></p>
+            <ul>
+                <li>Implémentation complète sur Arduino ATmega328.</li>
+                <li>Montage avec capteurs, RTC, LED RGB et boutons.</li>
+                <li>Scénario de démonstration complet.</li>
+                <li>Tests de fiabilité et précision.</li>
+            </ul>
+
+            <p><strong>Documentation :</strong></p>
+            <ul>
+                <li>Documentation technique détaillée.</li>
+                <li>Guide utilisateur pour pilotage de la station.</li>
+            </ul>
+
+            <h3>Compétences mobilisées :</h3>
+            <ul>
+                <li>Conception et développement de systèmes embarqués</li>
+                <li>Programmation Arduino (I2C, SPI, UART, analogique)</li>
+                <li>Modélisation UML/SysML</li>
+                <li>Rédaction de documentation technique</li>
+            </ul>
+
+            <h3>Résultat :</h3>
+            <p>Station météo embarquée fonctionnelle capable de mesurer et stocker les données environnementales avec interface simple et documentation complète.</p>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal" onclick="closeModalOnBackground(event, 'modal5')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal5')">×</button>
+            <h2>Programmation Orientée Objet – Automate cellulaire</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">POO</span>
+                <span class="tech-tag">SFML</span>
+                <span class="tech-tag">UML</span>
+            </div>
+
+            <h3>Objectifs du projet :</h3>
+            <ul>
+                <li>Développer un programme orienté objet structuré et modulaire.</li>
+                <li>Interface graphique via SFML pour visualiser l'automate cellulaire.</li>
+                <li>Appliquer les concepts de POO : classes, héritage, polymorphisme, encapsulation.</li>
+                <li>Tests unitaires garantissant la validité des itérations.</li>
+                <li>Documentation complète (diagrammes de classes, séquence, activité).</li>
+            </ul>
+
+            <h3>Travaux réalisés :</h3>
+            <p><strong>Conception et modélisation :</strong></p>
+            <ul>
+                <li>Diagrammes de classes : structure de l'application et relations.</li>
+                <li>Diagrammes de séquence : interactions entre objets.</li>
+                <li>Diagrammes d'activité : processus et comportements.</li>
+                <li>Organisation selon modularité et responsabilité unique.</li>
+            </ul>
+
+            <p><strong>Implémentation :</strong></p>
+            <ul>
+                <li>Application console et graphique fonctionnelle.</li>
+                <li>Concepts OO : encapsulation, polymorphisme, séparation des responsabilités.</li>
+                <li>Tests unitaires pour validation.</li>
+            </ul>
+
+            <p><strong>Interface graphique :</strong></p>
+            <ul>
+                <li>Utilisation de SFML pour affichage.</li>
+                <li>Interaction utilisateur : démarrage, pause, réinitialisation.</li>
+                <li>Expérience utilisateur claire et intuitive.</li>
+            </ul>
+
+            <p><strong>Présentation orale :</strong></p>
+            <ul>
+                <li>Démonstration de l'application.</li>
+                <li>Explication des choix de modélisation.</li>
+                <li>Réponses aux questions techniques sur la POO.</li>
+            </ul>
+
+            <h3>Compétences mobilisées :</h3>
+            <ul>
+                <li>Programmation orientée objet en C++</li>
+                <li>Conception UML (classes, séquences, activités)</li>
+                <li>Développement d'interfaces graphiques avec SFML</li>
+                <li>Tests unitaires et validation</li>
+                <li>Travail en binôme</li>
+            </ul>
+
+            <h3>Résultat :</h3>
+            <p>Application complète mettant en œuvre un automate cellulaire, démontrant la maîtrise de la POO avec visualisation et interaction efficaces.</p>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal" onclick="closeModalOnBackground(event, 'modal6')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal6')">×</button>
+            <h2>Réseaux</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">Réseau</span>
+            </div>
+            <h3>À venir...</h3>
+            <p>Ce projet sera bientôt disponible.</p>
+        </div>
+    </div>
+
+    <!-- Nouveau modal pour l'email SIMPLIFIÉ -->
+    <div id="modal-email" class="modal" onclick="closeModalOnBackground(event, 'modal-email')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal-email')">×</button>
+            <h2>Email</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">Email</span>
+            </div>
+            
+            <p style="font-size: 1.5rem; color: #ff0000; text-align: center; margin: 2rem 0; padding: 1rem; background: rgba(255, 0, 0, 0.1); border-radius: 10px; border: 2px solid rgba(255, 0, 0, 0.3);">
+                leo.martin3@viacesi.fr
+            </p>
+        </div>
+    </div>
+
+    <section id="competences">
+        <h2>Mes Compétences Informatiques</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
+                <h3>C#</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
+                <h3>C++</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                <h3>Python</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+                <h3>HTML</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+                <h3>CSS</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+                <h3>MySQL</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                <h3>Git</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" alt="Arduino">
+                <h3>Arduino</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://www.vectorlogo.zone/logos/wireshark/wireshark-icon.svg" alt="Wireshark">
+                <h3>Wireshark</h3>
+                <div class="learning-badge">en apprentissage</div>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 4rem;">Mes Compétences Bureautiques</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <img class="skill-icon" src="https://img.icons8.com/color/480/microsoft-excel-2019.png" alt="Excel">
+                <h3>Excel</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://img.icons8.com/color/480/microsoft-word-2019.png" alt="Word">
+                <h3>Word</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://img.icons8.com/color/480/microsoft-powerpoint-2019.png" alt="PowerPoint">
+                <h3>PowerPoint</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://img.icons8.com/color/480/microsoft-teams.png" alt="Teams">
+                <h3>Teams</h3>
+            </div>
+            <div class="skill-card">
+                <img class="skill-icon" src="https://img.icons8.com/color/480/canva.png" alt="Canva">
+                <h3>Canva</h3>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/9leoo" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/leo-martin-885473391/" target="_blank">LinkedIn</a>
+            <a onclick="openModal('modal-email')">Email</a>
+        </div>
+        <p>&copy; 2025 Léo Martin. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Particules
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 60; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 5 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 25 + 's';
+            particle.style.animationDuration = (Math.random() * 15 + 20) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Fonctions Modal
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnBackground(event, modalId) {
+            if (event.target.id === modalId) {
+                closeModal(modalId);
+            }
+        }
+
+        // Navigation smooth
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Effet scroll header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.85)';
+            }
+        });
+    </script>
+</body>
+</html>
